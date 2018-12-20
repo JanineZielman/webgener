@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="refresh" content="30; URL=/"> -->
+    <title></title>
+  </head>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+
+  <!-- <script src="code.js"></script> -->
+  <body>
+<style>
+  body{
+    background-color:black;
+  }
+
+  h1{
+    color: white;
+  }
+
+  img{
+    width: 25%;
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
+
+  img:hover{
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+  </style>
+
+    <h1></h1>
+     <!-- <img src="Website/P-1.png"></img> -->
+    <div id="x"></div>
+
+    <script>
+
+    window.addEventListener("load", ()=>{
+
+      var validExtensions = ["jpeg", "jpg", "png"];
+
+      // Ajax request, hiermee kan je data van een website opvragen doormiddel bijvoorbeeld een API
+      // http://api.jquery.com/jquery.ajax/
+
+      $.get("http://localhost:8080/list-files", (files) => {
+        $(files).each((index, filepath) => {
+          const parts = filepath.split("/");
+
+          const filename = parts[parts.length - 1];
+          const personName = parts[parts.length - 2];
+          const mediumName = parts[parts.length - 3];
+
+          const extName = filename.split(".").pop();
+
+          const allparts = mediumName + "/" + personName + "/" + filename;
+
+          if(validExtensions.indexOf(extName) > -1){
+
+
+        var img = document.createElement("img");
+
+// img.src = "Website/" + filename;
+img.src = allparts;
+var src = document.getElementById("x");
+
+src.appendChild(img);
+          }
+
+
+        })
+      })
+    })
+
+
+
+
+
+    </script>
+
+  </body>
+</html>
